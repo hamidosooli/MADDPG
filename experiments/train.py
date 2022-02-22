@@ -6,7 +6,9 @@ import pickle
 import matplotlib.pyplot as plt
 import maddpg.common.tf_util as U
 from maddpg.trainer.maddpg import MADDPGAgentTrainer
-import tensorflow.contrib.layers as layers
+#import tensorflow_addons.layers as layers
+import tf_slim.layers as layers
+#import tensorflow.contrib.layers as layers
 import csv
 
 # np.random.seed(101)
@@ -41,7 +43,7 @@ def parse_args():
 
 def mlp_model(input, num_outputs, scope, reuse=False, num_units=64, rnn_cell=None):
     # This model takes as input an observation and returns values of all actions
-    with tf.variable_scope(scope, reuse=reuse):
+    with tf.compat.v1.variable_scope(scope, reuse=reuse):
         out = input
         out = layers.fully_connected(out, num_outputs=num_units, activation_fn=tf.nn.relu)
         out = layers.fully_connected(out, num_outputs=num_units, activation_fn=tf.nn.relu)
@@ -157,7 +159,7 @@ def train(arglist):
         final_ep_rewards = []  # sum of rewards for training curve
         final_ep_ag_rewards = []  # agent rewards for training curve
         agent_info = [[[]]]  # placeholder for benchmarking info
-        saver = tf.train.Saver()
+        saver = tf.compat.v1.train.Saver()
         obs_n = env.reset()
         episode_step = 0
         train_step = 0

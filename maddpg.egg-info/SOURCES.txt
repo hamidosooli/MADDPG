@@ -1,4 +1,6 @@
+LICENSE.txt
 README.md
+setup.py
 maddpg/__init__.py
 maddpg.egg-info/PKG-INFO
 maddpg.egg-info/SOURCES.txt
